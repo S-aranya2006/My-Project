@@ -359,7 +359,7 @@ const Home = () => {
                   <div>
                     <p className="text-label-md font-label-md text-outline">EMAIL</p>
                     <p className="text-headline-md font-headline-md group-hover:text-primary transition-colors">
-                      saranya.s@example.com
+                      hello@codebysaya.site
                     </p>
                   </div>
                 </a>
