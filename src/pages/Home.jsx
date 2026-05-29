@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
 import Button from '../components/Button';
 import Card from '../components/Card';
@@ -55,25 +56,19 @@ const Home = () => {
     setIsSubmitting(true);
     
     try {
-      // Send the email using Web3Forms
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          // Replace with your Web3Forms access key tied to hello@codebysaya.site
-          access_key: "8ea2e7c1-1e4a-4518-9b15-b4401f639a47",
-          name: formData.name,
-          email: formData.email,
+      // Send the email using EmailJS
+      const response = await emailjs.send(
+        'service_wuz3otp', // Replace with your EmailJS Service ID
+        'template_al4vzwq', // Replace with your EmailJS Template ID
+        {
+          from_name: formData.name,
+          reply_to: formData.email,
           message: formData.message,
-        }),
-      });
-
-      const result = await response.json();
+        },
+        'DCsf8UgLy-_4hgWJG' // Replace with your EmailJS Public Key
+      );
       
-      if (result.success) {
+      if (response.status === 200) {
         // Success - Open premium confirmation modal
         setIsSubmitModalOpen(true);
         setFormData({ name: '', email: '', message: '' });
