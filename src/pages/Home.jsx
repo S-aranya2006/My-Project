@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
 import Button from '../components/Button';
 import Card from '../components/Card';
@@ -42,7 +42,9 @@ const Home = () => {
     }
   };
 
-  const handleFormSubmit = (e) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     const errors = validateForm();
     if (Object.keys(errors).length > 0) {
@@ -50,9 +52,40 @@ const Home = () => {
       return;
     }
 
-    // Success - Open premium confirmation modal
-    setIsSubmitModalOpen(true);
-    setFormData({ name: '', email: '', message: '' });
+    setIsSubmitting(true);
+    
+    try {
+      // Send the email using Web3Forms
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          // Replace with your Web3Forms access key tied to hello@codebysaya.site
+          access_key: "8ea2e7c1-1e4a-4518-9b15-b4401f639a47",
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+
+      const result = await response.json();
+      
+      if (result.success) {
+        // Success - Open premium confirmation modal
+        setIsSubmitModalOpen(true);
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        alert("There was an issue sending your message. Please try again later.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("There was an error sending your message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Static Data Arrays
@@ -409,8 +442,8 @@ const Home = () => {
                   rows={4}
                 />
                 
-                <Button variant="submit" type="submit">
-                  SEND MESSAGE
+                <Button variant="submit" type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? "SENDING..." : "SEND MESSAGE"}
                 </Button>
               </Form>
             </Card>

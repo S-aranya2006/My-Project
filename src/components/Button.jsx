@@ -35,7 +35,12 @@ const Button = ({
   }
 
   return (
-    <button type={type} onClick={onClick} className={selectedClasses} {...props}>
+    <button 
+      type={type} 
+      onClick={onClick} 
+      className={`${selectedClasses} ${props.disabled ? 'opacity-50 cursor-not-allowed' : ''}`} 
+      {...props}
+    >
       {children}
     </button>
   );
