@@ -22,7 +22,9 @@ const Footer = () => {
         <div className="flex gap-8">
           <a 
             className="text-label-md font-label-md text-outline hover:text-primary hover:underline underline-offset-4 transition-all duration-200" 
-            href="#"
+            href="https://github.com/codebysaya/"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             GITHUB
           </a>

@@ -140,6 +140,7 @@ const Home = () => {
       tags: ['REACT', 'DJANGO'],
       img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCWfHXwtOBFk76PCGrDHtUdGP3T9n7GvjF3vrVAFmBvheS9KihdIwW5fI69AI3xf41KBMrjnMpRrUigDO1-gtCAPrEUZRRuC8jojozySyyTkvWL05FURQdo_wQsRTABiFLp7sI0NhIlqh3GC1e5KrUPAqu3kn1UmWkZYONfMJEk5SHyTLhZx1c-WYTI9tP8W_062hmZAoRonbGoWPsYQLyiHEglQ7MNUiR6voLjxX4MYYnmZoUbZTs5V2YHSouqsi6qy4Eb-CHHsKW_',
       delay: 0,
+      link: 'http://ecommerce.codebysaya.site/',
     },
     {
       title: 'Business Landing Website',
@@ -355,7 +356,9 @@ const Home = () => {
                 </p>
                 <a 
                   className="mt-auto flex items-center gap-2 text-label-md font-label-md hover:underline underline-offset-8 transition-all text-left" 
-                  href="#"
+                  href={project.link || "#"}
+                  target={project.link ? "_blank" : undefined}
+                  rel={project.link ? "noopener noreferrer" : undefined}
                 >
                   VIEW CASE STUDY 
                   <span className="material-symbols-outlined text-sm">north_east</span>
@@ -393,7 +396,7 @@ const Home = () => {
                 </a>
                 
                 <div className="flex items-center gap-4">
-                  <Button variant="icon" href="#" aria-label="GitHub">
+                  <Button variant="icon" href="https://github.com/codebysaya/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                     GH
                   </Button>
                   <Button variant="icon" href="#" aria-label="LinkedIn">
